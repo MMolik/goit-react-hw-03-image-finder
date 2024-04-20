@@ -1,9 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { App } from 'components/App';
+import { createRoot } from 'react-dom/client';
+import App from './components/App'; // Upewnij się, że ścieżka jest prawidłowa
 import './index.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+// Utwórz korzeń aplikacji
+const root = createRoot(document.getElementById('root'));
+
+// Renderuj komponent App w korzeniu
+root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
