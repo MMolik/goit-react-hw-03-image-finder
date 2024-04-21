@@ -1,18 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import '../styles.css';
 
-const Modal = ({ imgUrl, alt = "", onClose }) => ( // Dodaliśmy domyślną wartość dla alt
-  <div className="overlay" onClick={onClose}>
-    <div className="modal">
-      <img src={imgUrl.toString()} alt={alt} />
+const Modal = ({ imageUrl, alt, onClose }) => {
+  useEffect(() => {
+    const handleKeyDown = e => {
+      if (e.keyCode === 27) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
+  const handleCloseModal = e => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  return (
+    <div className="overlay" onClick={handleCloseModal}>
+      <div className="modal">
+        <img src={imageUrl} alt={alt} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Modal.propTypes = {
-  imgUrl: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  alt: PropTypes.string, // Zmieniliśmy PropTypes na opcjonalne
+  imageUrl: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
