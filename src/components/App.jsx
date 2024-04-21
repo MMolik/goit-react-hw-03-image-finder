@@ -95,7 +95,6 @@ export class App extends Component {
     return (
       <div
         style={{
-          // height: '100vh',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
